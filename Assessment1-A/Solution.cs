@@ -204,6 +204,8 @@ namespace Assessment1
 
             Console.WriteLine(String.Format("Prime Number is : [ {0} ]", String.Join(", ", prime)));
             Console.WriteLine(String.Format("Non Prime Number is : [ {0} ]", String.Join(", ", nonPrime)));
+
+            Execute();
         }
     }
 }
