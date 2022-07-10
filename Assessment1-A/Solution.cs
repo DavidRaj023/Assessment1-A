@@ -38,6 +38,7 @@ namespace Assessment1
                     break;
                 default:
                     Console.WriteLine("Please enter the number 1 to 5");
+                    Execute();
                     break;
             }
         }
@@ -45,19 +46,22 @@ namespace Assessment1
         {
             try
             {
-                Console.WriteLine("Q1.Add the sequence of number in odd index\n");
-                Console.WriteLine("Enter the sequence of number");
+                Console.WriteLine("Q1.Add the sequence of number in odd index\nEnter the sequence of number");
 
                 String userInput = Console.ReadLine();
-                //int length = userInput.Length;
+                if (userInput.Length == 0 || userInput ==null)
+                {
+                    Console.WriteLine("Please enter the valid input...");
+                    GetQuestion1();
+                }
+                
                 int result = 0;
                 for (int i = 0; i < userInput.Length; i += 2)
                 {
                     int temp = Convert.ToInt32(userInput[i].ToString());
                     result += temp;
                 }
-                Console.WriteLine("Given input: {0}", userInput);
-                Console.WriteLine("Output: {0}", result);
+                Console.WriteLine("Input: {0} \nOutput: {1}", userInput, result);
 
                 Execute();
             }
@@ -72,9 +76,8 @@ namespace Assessment1
         {
             try
             {
-                Console.WriteLine("Q2.Find the missing number In the array");
-                Console.WriteLine("Enter the Array");
-                Console.WriteLine("Example: 1 2 3 5");
+                Console.WriteLine("Q2.Find the missing number In the array.\nEnter the Array:\n(Example: 1 2 3 5)");
+                
                 int[] array = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), Convert.ToInt32);
 
                 int n = array.Length;
@@ -97,22 +100,33 @@ namespace Assessment1
         {
             try
             {
-                Console.WriteLine("Q2.Find the missing number In the array");
-                Console.WriteLine("Enter the Array");
-                Console.WriteLine("Example: 1 2 3 5");
+                Console.WriteLine("Q2.Find the missing number In the array.\nEnter the Array:\n(Example: 1 2 3 5)");
+
                 int[] array = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), Convert.ToInt32);
-                Console.WriteLine("Missing Numbers");
-                Console.Write("[");
+
+                if (array.Length == 0 || array == null)
+                {
+                    Console.WriteLine("Please enter the valid input...");
+                    GetQuestion2Version2();
+                }
+                
+                var missingNumbers = new List<int>();
+
                 for (int i = array.Min(); i <= array.Max(); i++)
                 {
                     if (!array.Contains(i))
                     {
-                        Console.Write(" " + i);
+                        missingNumbers.Add(i);
                     }
                 }
-                Console.WriteLine(" ]");
-
+                
+                Console.WriteLine(String.Format("Missing Numbers : [ {0} ]", String.Join(", ", missingNumbers)));
+                if (missingNumbers.Count == 0)
+                {
+                    Console.WriteLine("There is no missing numbers");
+                }
                 Execute();
+
             }catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
@@ -124,13 +138,14 @@ namespace Assessment1
             try
             {
                 Console.WriteLine("Q3.Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.  ");
-                Console.WriteLine("Enter array input: ");
-                Console.WriteLine("Example: 9 3 5 2 32 22");
+                Console.WriteLine("Enter array input: \n(Example: 9 3 5 2 32 22)");
+                
                 int[] array = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), Convert.ToInt32);
 
                 Console.WriteLine("Enter target");
                 int target = Convert.ToInt32(Console.ReadLine());
 
+                
                 for(int i = 0; i < array.Length; i++)
                 {
                     for(int j = i+1; j< array.Length; j++)
@@ -155,13 +170,12 @@ namespace Assessment1
             try
             {
                 Console.WriteLine("Q4. Find the minimum and maximum elements in array");
-                Console.WriteLine("Enter the Array");
-                Console.WriteLine("Example: 9 3 5 2 32 22");
+                Console.WriteLine("Enter the Array:\n(Example: 9 3 5 2 32 22)");
+
                 int[] array = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), Convert.ToInt32);
 
-                Console.WriteLine("Min: " + array.Min());
-                Console.WriteLine("Max: " + array.Max());
-
+                Console.WriteLine("Min: {0} \nMax: {1}", array.Min(), array.Max());
+                
                 Execute();
             }
             catch (Exception ex)
@@ -173,31 +187,32 @@ namespace Assessment1
         public static void GetQuestion5()
         {
             Console.WriteLine("Q5.Separate the Prime and Non Prime number from the given array");
-            Console.WriteLine("Enter array1 input: ");
-            Console.WriteLine("Example: 9 3 5 2 32 22");
+            Console.WriteLine("Enter array1 input: \n (Example: 9 3 5 2 32 22)");
             int[] array1 = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), Convert.ToInt32);
 
             Console.WriteLine("Enter array2 input: ");
             int[] array2 = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), Convert.ToInt32);
-            int[] concat = array1.Concat(array2).Distinct().ToArray();
+            
+            int[] userGiven = array1.Concat(array2).Distinct().ToArray();
+            
             int j;
             var prime = new List<int>();
             var nonPrime = new List<int>();
-            for (int i = 0; i < concat.Length; i++)
+            for (int i = 0; i < userGiven.Length; i++)
             {
-                if(concat[i] == 1)
+                if(userGiven[i] == 1)
                 {
-                    nonPrime.Add(concat[i]);
+                    nonPrime.Add(userGiven[i]);
                 }
-                for (j = 2; j < concat[i]; j++)
-                    if ((concat[i] % j == 0))
+                for (j = 2; j < userGiven[i]; j++)
+                    if ((userGiven[i] % j == 0))
                     {
-                        nonPrime.Add(concat[i]);
+                        nonPrime.Add(userGiven[i]);
                         break;
                     }
-                if (j == concat[i])
+                if (j == userGiven[i])
                 {
-                   prime.Add(concat[i]);
+                   prime.Add(userGiven[i]);
                 }
 
             }
@@ -207,5 +222,6 @@ namespace Assessment1
 
             Execute();
         }
+
     }
 }
