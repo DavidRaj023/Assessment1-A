@@ -182,7 +182,15 @@ namespace Assessment1
                     userInput[i] = Convert.ToInt32(Console.ReadLine());
                 }
 
-                Console.WriteLine("Min: {0} \nMax: {1}", userInput.Min(), userInput.Max());
+                int max = 0;
+                int min = userInput[0];
+                for(int i = 0; i < userInput.Length; i++)
+                {
+                    if(userInput[i] > max) max = userInput[i];
+                    if (userInput[i] < min) min = userInput[i];
+                }
+
+                Console.WriteLine("Min: {0} \nMax: {1}", min, max);
                 
                 Execute();
             }
